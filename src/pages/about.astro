@@ -1,65 +1,82 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+const pageTitle = "About Me";
+
+const identity = {
+  firstName: "Casey",
+  country: "United States",
+  occupation: "Creative Ageny Owner",
+  hobbies: ["photography", "web design", "web development", "cycling"],
+};
+
+const skills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "Webflow",
+  "Astro",
+  "Writing Docs",
+];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "capitalize";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
+<BaseLayout pageTitle={pageTitle} />
 
-    <h1>About Me</h1>
-    <h2>... and my new Astro site!</h2>
-    <h1>Our Story</h1>
-    <h2>More Than Just Websites —We Help You Build a Brand That Thrives</h2>
-    <p>
-      CL Creative was founded out of a passion for web design, photography, and
-      a deep love for business strategy.
-    </p>
+<h2>... and my new Astro site!</h2>
 
-    <p>
-      As a small creative agency, we are dedicated to helping entrepreneurs grow
-      smarter through thoughtful design, strategic planning, and powerful
-      marketing solutions.
-    </p>
+<p>
+  I am working through Astro's introductory tutorial. This is the second page on
+  my website, and it's the first one I built myself!
+</p>
 
-    <p>
-      Since launching in 2022, we’ve grown quickly. By mid-year, we became
-      certified Webflow experts, and soon after, were invited to join Webflow’s
-      Professional Partner program — solidifying our expertise in delivering
-      high-performing, conversion-driven websites.
-    </p>
+<p>
+  This site will update as I complete more of the tutorial, so keep checking
+  back and see how my journey is going!
+</p>
 
-    <p>
-      Dallas-Based, Nationwide Reach Although we’re based in Dallas, TX, we work
-      seamlessly with clients across the country, from coast to coast. Our focus
-      is on building long-lasting partnerships with entrepreneurs who are ready
-      to take their business to the next level.
-    </p>
+<p>Here are a few facts about me:</p>
+<ul>
+  <li>My name is {identity.firstName}</li>
+  <li>
+    I live in {identity.country} and I work as a {identity.occupation}.
+  </li>
+  {
+    identity.hobbies.length >= 2 && (
+      <li>
+        Two of my hobbies are: {identity.hobbies[0]} and
+        {identity.hobbies[1]}
+      </li>
+    )
+  }
+</ul>
+<p>My skills are:</p>
+<ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
+{happy && <p>I am happy to be learning Astro!</p>}
+{finished && <p>I finished this tutorial</p>}
+{
+  goal === 3 ? (
+    <p> My goal is to finish in 3 days.</p>
+  ) : (
+    <p>My goal is not 3 days.</p>
+  )
+}
 
-    <p>
-      More Than Just Web Design—We’re Your Strategic Partner At CL Creative, we
-      don’t just build websites. We collaborate with growth-minded entrepreneurs
-      to create a brand and digital strategy that aligns with your business
-      goals.
-    </p>
-
-    <p>
-      Every website we design is SEO-optimized, on-brand, and crafted to convert
-      visitors into clients.
-    </p>
-
-    <p>
-      We blend over 15 years of customer-facing experience and 10 years of
-      leadership experience to help you refine your business model, communicate
-      your value, and position your business for long-term success.
-    </p>
-  </body>
-</html>
+<style is:global define:vars="{{ skillColor, fontWeight, textCase }}">
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>

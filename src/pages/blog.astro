@@ -1,14 +1,39 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogPost from "../components/BlogPost.astro";
 
+// Pulls in all posts using glob
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true })
+);
 const pageTitle = "My Astro Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <p>This is where I will post about my journey learning Astro.</p>
-  <ul>
-    <li><a href="/posts/post-1/">Post 1</a></li>
-    <li><a href="/posts/post-2/">Post 2</a></li>
-    <li><a href="/posts/post-3/">Post 3</a></li>
+
+  <ul class="blog-list">
+    {
+      allPosts.map((post: any) => (
+        <BlogPost
+          url={post.url}
+          image={post.frontmatter.image.url}
+          alt={post.frontmatter.image.alt}
+          title={post.frontmatter.title}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
   </ul>
 </BaseLayout>
+
+<style>
+  .blog-list {
+    padding-left: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+  }
+</style>
